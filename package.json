@@ -1,0 +1,20 @@
+{
+  "name": "trucksinc",
+  "version": "1.0.0",
+  "description": "simple api service for loading and unloading trucks",
+  "main": "index.js",
+  "scripts": {
+    "test": "run test",
+    "scripts": "node index.js"
+  },
+  "keywords": [
+    "packages",
+    "trucks",
+    "loading"
+  ],
+  "author": "Karolina K",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
