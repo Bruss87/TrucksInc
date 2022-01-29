@@ -12,10 +12,10 @@ module.exports = {
             allowNull: false
         },
         truck_id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.UUID,
         },
         last_truck_id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.UUID,
         },
         createdAt: {
             allowNull: false,

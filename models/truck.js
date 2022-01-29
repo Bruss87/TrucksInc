@@ -13,19 +13,31 @@ const Truck = db.define("Truck", {
             type: DataTypes.FLOAT,
             allowNull: false
         },
-        loadVolume: {
-            type: DataTypes.INTEGER
+        loaded_package_ids: {
+          type: DataTypes.ARRAY(DataTypes.UUID),
+          defaultValue: []
         }
+    },  
+    { hooks: {
+      beforeCreate: (truck)  => {
+        const checkArray =  (field) => {
+          if(Array.isArray(field) === false) {
+            field =[field]
+          }
+          return field
+        };
+        truck.loaded_package_ids = checkArray(truck.loaded_package_ids);
+      }}
     });
   
-    Truck.associate = function(models) {
+    // Truck.associate = function(models) {
   
-      Truck.hasMany(models.Package, {
-        foreignKey: "truck_id",
-        as: 'packages',
-      })
+    //   Truck.hasMany(models.Package, {
+    //     foreignKey: "truck_id",
+    //     as: 'packages',
+    //   })
+    // };
+   module.exports = {
+     Truck
+  }
   
-    }
-  module.exports = {
-      Truck
-  };

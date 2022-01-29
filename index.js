@@ -2,16 +2,20 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const http = require('http').Server(app);
+
 const port = 3000;
 const apiRoutes = require('./routes').router;
 const db = require('./config/database');
-app.use(cors());
-app.use(apiRoutes);
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(bodyParser.urlencoded({extended: true}));
+const corsOptions = {
+    origin: true,
+    methods: ['GET, POST'],
+    credentials: true
+  };
+app.use(cors(corsOptions));
+app.use(apiRoutes);
 
 
 try {

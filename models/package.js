@@ -23,7 +23,7 @@ const Package = db.define("Package", {
 
 Package.associate = function (models) {
     Package.belongsTo(models.Truck, {
-        onDelete: "cascade",
+        onDelete: "CASCADE",
         foreignKey: "truck_id",
         targetKey: "id"
     })

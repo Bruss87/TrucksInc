@@ -12,8 +12,9 @@ module.exports = {
             type: Sequelize.FLOAT,
             allowNull: false
         },
-        loadVolume: {
-            type: Sequelize.INTEGER
+        loaded_package_ids: {
+            type: Sequelize.ARRAY(Sequelize.UUID),
+            defaultValue: []
         },
           createdAt: {
               allowNull: false,
