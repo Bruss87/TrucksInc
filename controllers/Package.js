@@ -1,5 +1,4 @@
-const Package = require('../models/package').Package;
-const Truck = require('../models/truck').Truck;
+const Package = require('../models').Package;
 
 const getAllPackages = async (req, res) => {
     try {

@@ -14,25 +14,28 @@ const {
     deleteTruck,
     loadTruck,
     getTrucksWeight,
-    unloadTruck
+    unloadTruck,
+    getLoadVolume
 } = require('../controllers/Truck.js');
- 
-// Route get all packages
+
+
+//package routes
 router.get('/packages/all', getAllPackages);
-// Route get product by id
 router.get('/packages/:id', getPackageById);
-// Route create a new product
 router.post('/packages/create', createNewPackage);
-// Route delete product by id
 router.delete('/packages/delete/:id', deletePackage);
 
+
+//truck routes
 router.get('/trucks/all', getAllTrucks);
 router.get('/trucks/:id', getTruckById);
 router.post('/trucks/create', createNewTruck);
 router.delete('/trucks/delete/:id', deleteTruck);
 router.post('/trucks/loadTruck/:id', loadTruck);
 router.get('/trucks/weight/:id', getTrucksWeight);
-router.post('/trucks/unloadTruck/:id', unloadTruck);
+router.put('/trucks/unloadTruck/:id', unloadTruck);
+router.get('/trucks/loadVolume/:id', getLoadVolume);
+
 module.exports = {
     router
-}
+};

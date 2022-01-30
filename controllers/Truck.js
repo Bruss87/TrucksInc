@@ -1,5 +1,5 @@
-const Package = require('../models/package').Package;
-const Truck  = require('../models/truck').Truck;
+const Package = require('../models').Package;
+const Truck  = require('../models').Truck;
 
 const sequelize = require('sequelize');
 
@@ -59,10 +59,12 @@ const loadTruck = async (req,res) => {
         const truck = await findTruckById(id);
         const { packageId } = req.body;
         const package = await Package.findOne({where: {id: packageId}})
+
         const currentTrucksWeight = truck.weight;
         const updatedTrucksWeight = currentTrucksWeight + package.weight;
+        if(package.truck_id !== null) {return console.error(`This package has already been loaded to truck ${package.truck_id}`)}
+        await package.update({truck_id: id });
 
-        await package.update({truck_id: id })
         await truck.update({  weight: updatedTrucksWeight, loaded_package_ids: sequelize.fn('array_append', sequelize.col('loaded_package_ids'), packageId)})
         return res.status(200).json({ status: 'ok' })
     } catch(err) {console.log(err)}
@@ -76,7 +78,10 @@ const unloadTruck = async (req, res) => {
         const { packageId } = req.body;
         const package = await Package.findOne({where: {id: packageId}});
         await package.update({truck_id: null, last_truck_id: id });
-        await truck.update({loaded_package_ids:  sequelize.fn('array_remove', sequelize.col('loaded_package_ids'), packageId)});
+        const currentTrucksWeight = truck.weight;
+        const updatedTrucksWeight = currentTrucksWeight - package.weight;
+
+        await truck.update({loaded_package_ids:  sequelize.fn('array_remove', sequelize.col('loaded_package_ids'), packageId), weight: updatedTrucksWeight});
         return res.status(200).json({ status: 'ok' })
     } catch(err) {console.log(err)}
     return res.status(500).send(err)
@@ -84,10 +89,20 @@ const unloadTruck = async (req, res) => {
 
 const getTrucksWeight = async ( req, res) => {
     try{
-        const { id } = req.params
+        const { id } = req.params;
         const truck = await findTruckById(id);
         return res.status(200).json(truck.weight)
     } catch(err) {console.log(err)}
+    return res.status(500).send(err)
+};
+
+const getLoadVolume = async(req, res) =>  {
+    try{
+        const { id } = req.params;
+        const truck = await findTruckById(id);
+        const loadedPackages = truck.loaded_package_ids.length
+        return res.status(200).json(loadedPackages);
+    }catch(err) {console.log(err)}
     return res.status(500).send(err)
 };
 
@@ -99,5 +114,6 @@ module.exports = {
     deleteTruck,
     loadTruck,
     getTrucksWeight,
-    unloadTruck
+    unloadTruck,
+    getLoadVolume
 };

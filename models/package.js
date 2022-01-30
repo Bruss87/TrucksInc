@@ -1,9 +1,10 @@
-const Sequelize = require('sequelize');
-const db = require('../config/database');
-const DataTypes = Sequelize;
+// const Sequelize = require('sequelize');
+// const db = require('../config/database');
+// const DataTypes = Sequelize;
 
+module.exports = (sequelize, DataTypes) => {
 
-const Package = db.define("Package", {
+ const Package = sequelize.define("Package", {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -28,7 +29,5 @@ Package.associate = function (models) {
         targetKey: "id"
     })
 };
-
-module.exports = {
-    Package
-};
+    return Package
+}
