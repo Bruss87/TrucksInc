@@ -4,15 +4,20 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const port = 3000;
-const apiRoutes = require('./routes').router;
-// const db = require('./config/database');
+const apiRoutes = require('./API/routes').router;
+const http = require('http');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cors());
-// require('./routes')(app);
-app.use(apiRoutes)
-app.listen(port, function () {
-    console.log(`server started on port: ${port}`);
-  });
+app.use(apiRoutes);
+const server = http.createServer(app);
+
+
+if (process.env.NODE_ENV !== 'test') {
+  server.listen(port);
+  console.log(`server started on port: ${port}`)
+}
+
+module.exports = app;

@@ -4,8 +4,8 @@
   "description": "simple api service for loading and unloading trucks",
   "main": "index.js",
   "scripts": {
-    "test": "run test",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "keywords": [
     "packages",
@@ -28,6 +28,15 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.3",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^7.0.3",
+    "jest": "^27.4.7",
+    "supertest": "^6.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

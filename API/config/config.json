@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "hotsauce",
+    "database": "postgres",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password":  "hotsauce",
+    "database": "postgres_test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
