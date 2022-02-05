@@ -5,17 +5,17 @@ const app = require('../../index');
 
 describe('Routes - Truck', () => {
   describe('create a truck', () => {
-    // it('should create a new truck and return 200 status in response', async () => {
-    //   const res = await request(app)
-    //     .post('/trucks/create')
-    //     .send({
-    //       weight: 5.6,
-    //       loaded_package_ids: null
-    //     });
+    it('should create a new truck and return 200 status in response', async () => {
+      const res = await request(app)
+        .post('/trucks/create')
+        .send({
+          weight: 5.6,
+          loaded_package_ids: null
+        });
 
-    //   expect(res.status).toBe(200);
-    //   expect(res.body).toEqual({ message: 'Truck created' });
-    // });
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({ message: 'Truck created' });
+    });
     it('should not create a truck when there is a missing param', async() => {
       const res = await request(app)
       .post('/trucks/create')
